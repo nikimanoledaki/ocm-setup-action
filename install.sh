@@ -8,7 +8,7 @@ URL=https://github.com/$REPO/releases/download
 PLATFORM=linux-amd64
 if [ "$REPO" != "gardener/component-cli" ]; then
   ARCHIVESUFFIX=.tgz
-  ARCHIVEFILE="ocm-$PLATFORM$ARCHIVESUFFIX"
+  ARCHIVEFILE="ocm-$PLATFORM-$ARCHIVESUFFIX"
 else
   ARCHIVESUFFIX=.gz
   ARCHIVEFILE="componentcli-$PLATFORM$ARCHIVESUFFIX"

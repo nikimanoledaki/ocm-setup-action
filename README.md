@@ -10,7 +10,7 @@ subsequenet step to build a project.
 
 ### `version`
 
-**Optional** The tool version to install. Default `"v0.1.0-alpha.1"`.
+**Optional** The tool version to install. Defaults to the latest available OCM CLI version - see here: https://github.com/open-component-model/ocm/releases.
 
 ### `repo`
 
@@ -28,7 +28,7 @@ It is installed into a PATH folder. Therefore it can be directly be used, also.
 ```
 uses: open-component-model/ocm-setup-action@main
 with:
-  version: v0.1.0-alpha.1
+  version: v0.2.0 # For the latest available version, see: https://github.com/open-component-model/ocm/releases
 ```
 
 ## Licensing
