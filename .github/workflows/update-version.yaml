@@ -1,4 +1,4 @@
-name: Update OCM CLI version in Setup Action
+name: Update Version
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
         sed -i "s/default: .*/default: \'$TAG\'/" ./action.yaml
         sed -i "s/version: .*/version: $TAG/" ./README.md
         sed -i "s/version: .*/version: $TAG/" ./github/workflows/main.yaml
-        sed -i "s/ version:= .*/version:=$TAG/" ./install.sh
+        sed -i "s/version:= .*/version:=$TAG/" ./install.sh
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
       with:

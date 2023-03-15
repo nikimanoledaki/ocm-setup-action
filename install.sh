@@ -1,32 +1,22 @@
 #!/bin/sh -e
 
-WORKSPACE="${GITHUB_WORKSPACE:=/usr/local}"
 WORKSPACE="/usr/local"
-VERSION=${version:=v0.1.0-alpha.2}
+TAG=${version:=v0.3.0-rc.1}
+VERSION=$(echo "$TAG" | tr -d v)
 REPO=${repo:=open-component-model/ocm}
-URL=https://github.com/$REPO/releases/download
 PLATFORM=linux-amd64
-if [ "$REPO" != "gardener/component-cli" ]; then
-  ARCHIVESUFFIX=.tgz
-  ARCHIVEFILE="ocm-$PLATFORM-$ARCHIVESUFFIX"
-else
-  ARCHIVESUFFIX=.gz
-  ARCHIVEFILE="componentcli-$PLATFORM$ARCHIVESUFFIX"
-fi
-FILE="$(basename "$ARCHIVEFILE" $ARCHIVESUFFIX)"
+ARCHIVESUFFIX=.tar.gz
+ARCHIVEFILE="ocm-$VERSION-$PLATFORM$ARCHIVESUFFIX"
+URL="https://github.com/$REPO/releases/download/$TAG/$ARCHIVEFILE"
 TARGET=${WORKSPACE}/bin/ocm
 
 cd /tmp
-echo "Install Open Component Model Tool version $version from $REPO"
-rm -f "$ARCHIVEFILE"
-wget -q "$URL/$VERSION/$ARCHIVEFILE"
+echo "Install Open Component Model CLI Tool version $TAG from $URL"
+rm -f ocm-cli.tgz
 mkdir -p "$(dirname "$TARGET")"
-if [ "$ARCHIVESUFFIX" = .tgz ]; then
-  tar -xzf "$ARCHIVEFILE"
-else
-  gunzip -f "$ARCHIVEFILE"
-fi
-cp "$FILE" "$TARGET"
+curl -L -o ocm-cli.tar.gz "$URL"
+tar -xvzf ocm-cli.tar.gz
+cp ocm "$TARGET"
 chmod a+x "$TARGET"
-echo "installed into $TARGET"
-echo "::set-output name=ocm-path::$TARGET"
+echo "ocm installed into $TARGET"
+echo "ocm-path=$TARGET" >> "$GITHUB_OUTPUT"
